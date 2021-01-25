@@ -1,10 +1,12 @@
 import React,{useEffect} from 'react';
 import {Provider} from 'react-redux'
-
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+
 import UsersScreen  from './src/screens/Users'
 import AddUser  from './src/screens/AddUser'
+import EditUser  from './src/screens/EditUser'
+
 import store from './store';
 //import CoinDetailScreen from '../coinDetail/CoinDetailScreen'
 const Stack = createStackNavigator();
@@ -15,7 +17,7 @@ const App = () =>(
         <Stack.Navigator
           screenOptions={{
               headerStyle: {
-                  backgroundColor:'rgba(0,0,0,0.5)',
+                  backgroundColor:'rgba(0,0,0,0.2)',
                   shadowOpacity: 0,
               },
               headerTintColor: '#FFFFFF'
@@ -28,6 +30,10 @@ const App = () =>(
           <Stack.Screen
             name='AddUser'
             component={AddUser}
+          />
+          <Stack.Screen
+            name='EditUser'
+            component={EditUser}
           />
         </Stack.Navigator>
       </NavigationContainer>

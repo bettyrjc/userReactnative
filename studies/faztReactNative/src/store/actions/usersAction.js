@@ -1,10 +1,9 @@
 import axios from "axios";
 import {
-    GET_USERS,
-    GET_USER,
     ADD_USER,
     DELETE_USER,
     UPDATE_USER,
+    GET_USERS
   } from "./types";
   
   import { Loading, removeLoading } from "./helperAction";
@@ -38,5 +37,44 @@ import {
     } catch (err) {
       console.log(err);
       removeLoading(dispatch);
+    }
+  };
+
+  export const updateUser = (id,user, history) => async dispatch => {
+    UserLoading(dispatch);
+    try{
+      const res = await axios.put(
+        `https://jsonplaceholder.typicode.com/users/${id}`,
+        user
+      );
+      dispatch({
+        type: UPDATE_USER,
+        payload: res.data
+      });
+      removeUserLoading(dispatch);
+    }catch(err){
+      removeUserLoading(dispatch);
+      console.log('error')
+    }
+  };
+
+  export const deleteUser = id => async dispatch => {
+    console.log('user deleted 0');
+    try {
+      console.log('user deleted 1');
+      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+      console.log('user deleted 2', 'id',id);
+      removeUserLoading(dispatch);
+      dispatch({
+        type: DELETE_USER,
+        payload: id
+      });
+      console.log('user deleted 3');
+
+    } catch (e) {
+      dispatch({
+        type: DELETE_USER,
+        payload: id
+      });
     }
   };

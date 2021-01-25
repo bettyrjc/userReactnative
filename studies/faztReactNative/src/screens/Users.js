@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text, FlatList, StyleSheet, ActivityIndicator, Pressable} from 'react-native'
+import {View, Text, FlatList, StyleSheet, ActivityIndicator, Pressable,Alert} from 'react-native'
 import {getUsers} from '../store/actions/usersAction'
 import { connect } from 'react-redux';
 import User from './User'
@@ -22,10 +22,15 @@ class Users extends Component {
         })
     }
     addNewUser =()=>{
-        console.log('hola');
         this.props.navigation.navigate('AddUser');
-
     }
+
+     moveToEdit =()=>{
+         console.log('editar');
+        this.props.navigation.navigate('EditUser');
+    }
+
+      
     render() {
         const {users} = this.props
         return (
@@ -45,7 +50,12 @@ class Users extends Component {
                             <FlatList
                                 style={styles.list}
                                 data={users}
-                                renderItem={({ item }) =><User user={item}/> }
+                                renderItem={({ item }) =><User 
+                                                            user={item} 
+                                                            moveToEdit={()=>this.moveToEdit()}
+                                                           
+                                                        /> 
+                                            }
                             />
                         </View>
                 }
